@@ -1,34 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import Note from "./Note.jsx";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [arrayNotes, setArrayNotes] = useState([]);
+  const [newNote, setNewNote] = useState("");
+
+  useEffect(
+    () =>{
+      fetch("https://jsonplaceholder.typicode.com/posts")
+        .then((promise) => promise.json())
+        .then((json) => setArrayNotes(json))
+    },[]
+  );
+
+  const handleChange = (e) => {
+    setNewNote(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const noteToAdd = {
+      id: arrayNotes.length + 1,
+      title: newNote,
+      body: newNote,
+      important: Math.random() > 0.5
+    };
+
+    setArrayNotes([...arrayNotes, noteToAdd]);
+    setNewNote("");
+  };
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>Renderización con useEffect()</h1>
+      <ol className="NotesList">
+        {arrayNotes.map((note) => (
+          <Note key={note.id} note={note} />
+        ))}
+      </ol>
+      <form onSubmit={handleSubmit}>
+        <input type="text" value={newNote} onChange={handleChange}></input>
+        <button>Añadir nNta</button>
+      </form>
     </div>
-  )
+  );
 }
-
-export default App
