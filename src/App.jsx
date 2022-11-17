@@ -28,22 +28,22 @@ export default function App() {
       important: Math.random() > 0.5
     };
 
-    setArrayNotes([...arrayNotes, noteToAdd]);
+    setArrayNotes([noteToAdd, ...arrayNotes]);
     setNewNote("");
   };
 
   return (
     <div className="App">
       <h1>Renderización con useEffect()</h1>
+      <form onSubmit={handleSubmit}>
+        <input type="text" value={newNote} onChange={handleChange}></input>
+        <button>Añadir Nota</button>
+      </form>
       <ol className="NotesList">
         {arrayNotes.map((note) => (
           <Note key={note.id} note={note} />
         ))}
       </ol>
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={newNote} onChange={handleChange}></input>
-        <button>Añadir nNta</button>
-      </form>
     </div>
   );
 }
