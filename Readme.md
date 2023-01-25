@@ -1,6 +1,30 @@
-# Tutorial ReactJS III: Arrays en el estado
+# Tutorial ReactJS III: Programación asíncrona
 
-Vamos a hacer unos ejercicios para entender como añadir elementos y renderizar arrays dentro del estado de la aplicación en ReactJS. 
+En este repositorio vamos a introducir los conceptos necesarios para trabajar con datos que provienen de otros sitios web y visualizarlos en nuestra aplicación. 
+
+Vamos a utilizar una url muy popular que devuelve 100 notas con la siguiente estructura:
+
+```javascript
+{
+    "userId":1,
+    "id":1,
+    "title":"Valoración programación asincrona",
+    "body":"Al principio asusta un poco, pero con este tutorial se entiende todo",
+}
+```
+
+📡 https://jsonplaceholder.typicode.com/posts
+
+## ¿Qué es la Programación asíncrona?
+
+En una aplicación web es muy frecuente tener que obtener los datos desde algún servidor de internet. Esto ocasiona retardos a la hora de obtener la información (pueden ser decimas de segundo pero eso ya es mucho tiempo) y debemos aprender a gestionar este flujo.
+
+Para manejar esto javascript tiene un tipo de dato especial llamado promesa. La filosofía es sencilla. Cuando se realiza una promesa esta queda en **estado pendiente** hasta que se resuelva.
+
+👍 Si todo va bien nos devuelve los datos solicitados.
+😓 Si existe algún problema la promesa devolverá un error.
+
+La clave está en aprender a controlar ese retardo con la instrucción `fetch()` de javascript.
 
 Venimos de 👉 [Tutorial ReactJS II](https://github.com/HugoLebredo/react_tutorial_2) donde trabajamos con las bases estado de la aplicación.
 
