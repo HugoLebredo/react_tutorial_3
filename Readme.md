@@ -1,8 +1,8 @@
-# Tutorial ReactJS II: Arrays en el estado
+# Tutorial ReactJS III: Arrays en el estado
 
 Vamos a hacer unos ejercicios para entender como añadir elementos y renderizar arrays dentro del estado de la aplicación en ReactJS. 
 
-Venimos de 👉 [Tutorial ReactJS I](https://github.com/HugoLebredo/react_tutorial_2) donde trabajamos con las bases estado de la aplicación.
+Venimos de 👉 [Tutorial ReactJS II](https://github.com/HugoLebredo/react_tutorial_2) donde trabajamos con las bases estado de la aplicación.
 
 ## ¿Cómo funciona este repositorio?
 
