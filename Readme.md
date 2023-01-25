@@ -6,6 +6,8 @@ Fijate en la consola como el primer `console.log` siempre está en **estado pend
 
 ⚠️ Se mantiene mucho código de los ejercicios anteriores innecesario para este ejercicio (el formulario, las 3 notas hardcodeadas dentro del archivo `min.jsx`) pero creo que una buena manera de concentrarnos en los cambios. El resto es territorio conocido.
 
+Un concepto que tenemos que interiorizar es el de la programación asíncrona
+
 ## ¿Qué es la Programación asíncrona?
 
 En una aplicación web es muy frecuente tener que obtener los datos desde algún servidor de internet. Esto ocasiona retardos a la hora de obtener la información (pueden ser decimas de segundo pero eso ya es mucho tiempo) y debemos aprender a gestionar este flujo.
