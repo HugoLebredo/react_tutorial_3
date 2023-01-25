@@ -1,5 +1,5 @@
 import { StrictMode } from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 
 import App from "./App";
 
@@ -31,10 +31,9 @@ const promesa = fetch("https://jsonplaceholder.typicode.com/posts")
 
 console.log({ promesa });
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById("root"))
+root.render(
   <StrictMode>
     <App notes={notes} />
   </StrictMode>,
-  rootElement
 );
