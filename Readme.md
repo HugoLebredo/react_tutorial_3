@@ -1,6 +1,8 @@
 # Tutorial ReactJS III: Programación asíncrona
 
-En este repositorio vamos a introducir los conceptos necesarios para trabajar con datos que provienen de otros sitios web y visualizarlos en nuestra aplicación. 
+En una aplicación web es muy frecuente tener que obtener los datos desde algún servidor de internet. Esto ocasiona retardos a la hora de obtener la información (pueden ser decimas de segundo pero es ya es mucho tiempo) y debemos aprender a gestionar este flujo.
+
+En este repositorio vamos a introducir los conceptos necesarios para trabajar con datos que provienen de otros sitios web y visualizarlos en nuestra aplicación.
 
 Vamos a utilizar una url muy popular que devuelve 100 notas con la siguiente estructura:
 
