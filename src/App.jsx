@@ -5,14 +5,17 @@ import "./App.css";
 export default function App() {
   const [arrayNotes, setArrayNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
+  const [loading, setLoading] = useState();
 
-  useEffect(
-    () =>{
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
       fetch("https://jsonplaceholder.typicode.com/posts")
         .then((promise) => promise.json())
-        .then((json) => setArrayNotes(json))
-    },[]
-  );
+        .then((json) => setArrayNotes(json));
+      setLoading(false);
+    }, 5000);
+  }, []);
 
   const handleChange = (e) => {
     setNewNote(e.target.value);
@@ -28,16 +31,17 @@ export default function App() {
       important: Math.random() > 0.5
     };
 
-    setArrayNotes([noteToAdd, ...arrayNotes]);
+    setArrayNotes([...arrayNotes, noteToAdd]);
     setNewNote("");
   };
 
   return (
     <div className="App">
-      <h1>Renderización con useEffect()</h1>
+      <h1>Renderización condicional</h1>
+      {loading ? "Cargando Notas 💤 🥱" : ""}
       <form onSubmit={handleSubmit}>
         <input type="text" value={newNote} onChange={handleChange}></input>
-        <button>Añadir Nota</button>
+        <button>Add note</button>
       </form>
       <ol className="NotesList">
         {arrayNotes.map((note) => (

@@ -1,55 +1,43 @@
-# Ejercicio 2
+# Ejercicio 3
 
-En este ejercicio vamos a hacer 2 cosas:
+En este ejercicio vamos implementar la lógica necesaria para lograr un **renderizado condicional** utilizando los hooks `useState()` y `useEffect()`. El objetivo es forzar un retraso de 5 segundos la carga de datos de la url. Mientras dure ese lapso de tiempo mostraremos la siguiente cadena de texto `"Cargando Notas 💤 🥱"` informando al usuario de que nuestra aplicación no se ha colgado y transcurrido ese tiempo mostraremos las notas. De ahí lo de **condicional**.
 
-1. Renderizar las notas provenientes de un sistema externo.
-2. Renderizar nuestro componente cada vez que añadamos una nota nueva mediante nuestro formulario
-
+Esto podría hacerse de manera más elegante mostrando un componente que fuera un spinner pero nos vamos a centrar en la lógica. Si quisieramos mejorar el código en lugar de cadenas de texto podríamos llamar a componentes. Lanzo el guante a quien quiera intentarlo.
 
 ## Apuntes 📓
-Lo primero que tenemos que tener claro para la renderización de datos provenientes de un `fetch()` es el ciclo de vida de React⚛️.
 
-Un componente se renderiza inicialmente cuando se le llama pero también cada vez que cambia el estado. Por eso en el primer tutorial cada vez que incrementabamos nuestro contador podíamos ver por pantalla el valor actualizado, React era consciente de la actualización del valor del estado y volvía a renderizarse.
-
-Cuando trabajamos con datos externos esto es un poco más complicado. Datos externos significa **programación asíncrona** que significa **promesas** que significa algo así como 🤦‍♂️ en forma de emoji.
-
-Tenemos que tener muy claro que siempre que hacemos una petición esta pasará por 2 estados. El primer estado es pendiente que es transitorio y un segundo estado final (normalmente satisfactorio). El problema que tiene React es que no es consciente cuando se completa la promesa y por tanto cuando tiene que volver a renderizarse el componente. No es consciente cuando se actualiza el estado.
-
-Esa es la razón del hook `useEffect()`. Controlar el renderizado del componente. Este hook ejecuta código al inicializarse el componente y cada vez que se produzcan cambios (actualizaciones) en el estado de la aplicación.
-
-Tiene la siguiente forma:
+Lo primero que necesitamos es crear un estado con una variable booleana que controle si los datos se han cargado o no.
 
 ```javascript
- useEffect(
-    () =>{
-    // Función que se va a ejecutar
-    },[] //Array de dependencias
-  );
+const [loading, setLoading] = useState();
 ```
+Modificaremos el valor del estado `loading` dentro del hook `useEffect()` que tenemos creado ya que el código que contiene se ejecuta unicamente la primera vez que se renderiza el componente ya que su **array de dependencias** está vacío.
 
-No es más que una función a la que se le tienen que pasar 2 argumentos:
+El plan es el siguiente:
+1. Estableceremos el valor de `loading` en `true`.
+2. Cargaremos los datos de la url.
+3. Cambiaremos el valor de `loading` a `false`.
 
-1. Una función que será el código a ejecutar.
-2. *Array de dependencias:* Se incluye cualquier valor del estado que deba disparar la función del `useEffect()`. Si se pasa vacío indica que el hook solo se ejecutará la primera vez que se renderización inicial del componente.
-
-Vamos a explicar el código que tenemos en el archivo `App.jsx`. Es un patrón muy sencillo. Hacemos una petición, la convertimos a json y la almacenamos en nuestro estado. Si cambiamos la url podríamos reutilizar este código para cualquier otro endpoint.
+Para forzar el retraso de la carga utilizaremos la función `setTimeout()` que recibe 2 valores; una función y el número en milisegundos que  va a esperar a ejecutar dicha función. Esa función contendrá el `fetch()`.
 
 ```javascript
- useEffect(
-    () =>{
-      fetch("https://jsonplaceholder.typicode.com/posts")  //1 Hacemos la petición 
-        .then((promise) => promise.json())                 //2 Convertimos la respuesta en jormato json
-        .then((json) => setArrayNotes(json))               //3 Guardamos el resultado en el estado
-    },[]
-  );
+ useEffect(() => {
+    setLoading(true); // inicializado valor a true
+
+    setTimeout(() => {
+      fetch("https://jsonplaceholder.typicode.com/posts") // pedimos los datos
+        .then((promise) => promise.json())
+        .then((json) => setArrayNotes(json));
+      setLoading(false); // actualizamos el valor de loading.
+    }, 5000);
+
+  }, []);
 ```
 
-Cuando se resuelva la promesa se cargará en el estado el array de notas. El useEffect solo se ejecutará esa vez ya que no tiene ninguna depedencia en el array de dependencias. A partir de ahí ya tenemos cargadas las notas en el estado y podemos añadir las que queramos gracias a la función `handleSubmit()` que se llama en el botón del formulario. El `useEffect()` ya no se ejecutará más.
+Solo queda utilizar el valor del estado para mostrar la cadena de texto. Esto lo tenemos que hacer dentro del `return` de nuestro componente con un operador ternario. El código va entre llaves porque es javascript no jsx y la cadena vacia es devido a que el operador ternario obliga a poner un valor por si se cumple la condición o por si no se cumple. La cadena vacía no molesta por ser vacía
 
-## 📽 Un par de videos utiles sobre el `useEffect()`:
-
-- [The Net Ninja - React Course cap 17]('https://www.youtube.com/watch?v=qdCHEUaFhBk&t=247s')
-- [Web Dev Simplified - Learn useEffect In 13 Minutes]('https://www.youtube.com/watch?v=0ZJgIjIuY7U')
-
+```javascript
+{loading ? "Cargando Notas 💤 🥱" : ""}
+```
 
 [![codesandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/github/HugoLebredo/react_tutorial_3/ejercicio2)
