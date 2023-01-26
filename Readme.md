@@ -40,4 +40,4 @@ Solo queda utilizar el valor del estado para mostrar la cadena de texto. Esto lo
 {loading ? "Cargando Notas 💤 🥱" : ""}
 ```
 
-[![codesandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/github/HugoLebredo/react_tutorial_3/ejercicio2)
+[![codesandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/github/HugoLebredo/react_tutorial_3/ejercicio3)
